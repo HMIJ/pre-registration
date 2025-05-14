@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Student Pre-registration</title>
   <link rel="stylesheet" href="css/style.css"/>
+
+  <!-- EmailJS and SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Initialize EmailJS -->
+  <script>
+    emailjs.init("flGymv8nclc83OgNm"); // Your EmailJS public key
+  </script>
 </head>
 <body>
   <div class="form-container">
@@ -63,11 +70,11 @@
     </form>
   </div>
 
+  <!-- Firebase and Form Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyC0eUmZ4NSrWdQ-VuBlAXWFQL3ekF6X2Hk",
       authDomain: "hmij-eb237.firebaseapp.com",
@@ -77,12 +84,8 @@
       appId: "1:779238161828:web:5c3b154a317e15ff0f5531"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
-    // Initialize EmailJS
-    emailjs.init("flGymv8nclc83OgNm");
 
     const form = document.getElementById('signup-form');
 
@@ -122,7 +125,7 @@
         });
 
         console.log("Document written with ID: ", docRef.id);
-        sendEmail(email, fullname);
+        sendEmail(email, fullname, applicationType);
       } catch (error) {
         console.error("Error adding document: ", error);
         Swal.fire({
@@ -136,41 +139,40 @@
     });
 
     function sendEmail(email, fullname, applicationType) {
-  // Generate a link-friendly version of the application type
-  const appTypePath = applicationType.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
-  const enlistmentLink = `https://hmij.github.io/pre-registration//${appTypePath}`;
+      const appTypePath = applicationType.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
+      const enlistmentLink = `https://hmij.github.io/pre-registration/${appTypePath}`;
 
-  emailjs.send('service_2d8d62w', 'template_spqo6mt', {
-    email: email,
-    fullname: fullname,
-    enlistment_link: enlistmentLink
-  }, 'flGymv8nclc83OgNm')
-  .then(() => {
-    Swal.fire({
-      icon: 'success',
-      title: 'Registration Successful!',
-      html: 'A confirmation email has been sent.<br>Please proceed to Pre-Enlistment.',
-      confirmButtonText: 'Okay'
-    }).then((result) => {
-      if (result.isConfirmed) {
+      emailjs.send('service_2d8d62w', 'template_spqo6mt', {
+        email: email,
+        fullname: fullname,
+        enlistment_link: enlistmentLink
+      }, 'flGymv8nclc83OgNm')
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful!',
+          html: 'A confirmation email has been sent.<br>Please proceed to Pre-Enlistment.',
+          confirmButtonText: 'Okay'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.reset();
+            location.reload();
+          }
+        });
+      }, (error) => {
+        console.error("EmailJS Error:", error);
+        Swal.fire({
+          icon: 'warning',
+          title: 'Registration Saved',
+          text: 'But the confirmation email failed to send.'
+        });
         form.reset();
-        location.reload();
-      }
-    });
-  }, (error) => {
-    console.error("EmailJS Error:", error);
-    Swal.fire({
-      icon: 'warning',
-      title: 'Registration Saved',
-      text: 'But the confirmation email failed to send.'
-    });
-    form.reset();
-  }).finally(() => {
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit';
-  });
-}
+      }).finally(() => {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      });
+    }
   </script>
 </body>
 </html>
