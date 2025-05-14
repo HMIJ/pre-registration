@@ -138,7 +138,7 @@
     function sendEmail(email, fullname, applicationType) {
   // Generate a link-friendly version of the application type
   const appTypePath = applicationType.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
-  const enlistmentLink = `https://github.com/HMIJ/earlyregistration/${appTypePath}`;
+  const enlistmentLink = `https://hmij.github.io/pre-registration//${appTypePath}`;
 
   emailjs.send('service_2d8d62w', 'template_spqo6mt', {
     email: email,
