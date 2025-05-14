@@ -1,0 +1,139 @@
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  background-color: #e8eae0; /* Light Olive Green background */
+  margin-bottom: 30px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2em;
+  color: #4f572d; /* Olive green color for heading */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #4f572d;
+}
+
+input, select, textarea {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #8e9b57; /* Olive Green border */
+  border-radius: 8px;
+  font-size: 1em;
+  color: #333;
+  background-color: #f1f1f1;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #4f572d; /* Olive Green focus border */
+  box-shadow: 0 0 8px rgba(79, 87, 45, 0.5);
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  padding: 15px;
+  background-color: #4f572d; /* Olive Green background */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+button:hover {
+  background-color: #8e9b57; /* Lighter Olive Green for hover */
+}
+
+/* Styling for the select dropdowns */
+select {
+  padding: 12px;
+  background-color: #f1f1f1;
+  border: 1px solid #8e9b57; /* Olive Green border */
+  border-radius: 8px;
+  appearance: none; /* Remove default arrow in most browsers */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  font-size: 1em;
+  color: #333;
+  position: relative;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #4f572d;
+  box-shadow: 0 0 8px rgba(79, 87, 45, 0.5);
+}
+
+select option {
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+}
+
+select option:hover {
+  background-color: #8e9b57; /* Olive Green hover for options */
+  color: white;
+}
+
+/* Custom arrow for select dropdown */
+select::after {
+  content: ' ▼';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4f572d; /* Olive green arrow */
+  pointer-events: none;
+}
+
+/* Mobile-first design */
+@media (max-width: 600px) {
+  .form-container {
+      padding: 20px;
+      width: 100%;
+  }
+
+  h2 {
+      font-size: 1.6em;
+  }
+
+  input, select, textarea {
+      font-size: 1em;
+  }
+
+  button {
+      font-size: 1.2em;
+  }
+}
+

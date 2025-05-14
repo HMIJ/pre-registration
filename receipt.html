@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <title>Student Invoice</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    color: #000;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .header img {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 0;
+  }
+
+  .registrar-copy {
+    text-align: right;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  .registrar-copy span {
+    display: inline-block;
+    background-color: #fff8c4;
+    border: 1px solid #000;
+    padding: 6px 12px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .invoice-details, .bill-to {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+
+  .invoice-details td, .bill-to td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+
+  .invoice-details td.label {
+    font-weight: bold;
+    width: 150px;
+  }
+
+  .bill-to td {
+    border: 1px solid #ccc;
+  }
+
+  .bill-to td.label {
+    background: #f0f0f0;
+    font-weight: bold;
+    width: 150px;
+  }
+
+  .subject-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  .subject-table th, .subject-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .subject-table th {
+    background-color: #f0f0f0;
+  }
+
+  .total-units-row td {
+    font-weight: bold;
+  }
+
+  @media print {
+    body {
+      margin: 0;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="D:\AppServ\www\hmijregistration\earlyregistration\img\Add a heading.png" alt="School Header">
+  </div>
+
+  <h1>INVOICE</h1>
+
+  <div class="registrar-copy">
+    <span>Registrar's Copy</span>
+  </div>
+
+  <table class="invoice-details">
+    <tr>
+      <td class="label">Date:</td>
+      <td>April 11, 2025</td>
+    </tr>
+    <tr>
+      <td class="label">Invoice No.:</td>
+      <td>INV-20250411-001</td>
+    </tr>
+  </table>
+
+  <table class="bill-to" style="margin-top: 20px;">
+    <tr>
+      <td class="label">Student Name:</td>
+      <td>Juan Dela Cruz</td>
+    </tr>
+    <tr>
+      <td class="label">Student ID:</td>
+      <td>202310123</td>
+    </tr>
+    <tr>
+      <td class="label">Program:</td>
+      <td>BS Information Technology</td>
+    </tr>
+    <tr>
+      <td class="label">Year Level:</td>
+      <td>2nd Year</td>
+    </tr>
+    <tr>
+      <td class="label">Semester:</td>
+      <td>2nd Semester</td>
+    </tr>
+    <tr>
+      <td class="label">School Year:</td>
+      <td>2024-2025</td>
+    </tr>
+  </table>
+
+  <table class="subject-table">
+    <thead>
+      <tr>
+        <th>Course Code</th>
+        <th>Course Description</th>
+        <th>Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>IT101</td>
+        <td>Introduction to Computing</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>IT102</td>
+        <td>Computer Programming 1</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>IT103</td>
+        <td>Digital Logic</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>IT104</td>
+        <td>Discrete Mathematics</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>PE2</td>
+        <td>Physical Education 2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>NSTP2</td>
+        <td>National Service Training Program 2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>GE2</td>
+        <td>Understanding the Self</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>GE3</td>
+        <td>Purposive Communication</td>
+        <td>3</td>
+      </tr>
+      <tr class="total-units-row">
+        <td colspan="2" style="text-align: right;">Total Units</td>
+        <td>23</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
