@@ -77,42 +77,6 @@
   <option value="BSCS">BSCS</option>
 </select>
 
-<!-- Loader Overlay -->
-<div id="loader-overlay" class="loader-hidden">
-  <div class="spinner"></div>
-</div>
-
-<style>
-#loader-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.loader-hidden {
-  display: none;
-}
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
-
-
-
       <button type="submit">Submit</button>
     </form>
   </div>
@@ -120,7 +84,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
-    
+  
     const firebaseConfig = {
       apiKey: "AIzaSyC0eUmZ4NSrWdQ-VuBlAXWFQL3ekF6X2Hk",
       authDomain: "hmij-eb237.firebaseapp.com",
@@ -129,26 +93,19 @@
       messagingSenderId: "779238161828",
       appId: "1:779238161828:web:5c3b154a317e15ff0f5531"
     };
-    
+  
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+  
     const form = document.getElementById('signup-form');
-    
-    // Reusable loader functions
-    function showLoader() {
-      document.getElementById('loader-overlay').classList.remove('loader-hidden');
-    }
-    function hideLoader() {
-      document.getElementById('loader-overlay').classList.add('loader-hidden');
-    }
-    
+  
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+  
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
-      showLoader();
-    
+  
       const email = document.getElementById('email').value;
       const fullname = document.getElementById('fullname').value;
       const phonenumber = document.getElementById('phonenumber').value;
@@ -161,7 +118,7 @@
       const address = document.getElementById('address').value;
       const applicationType = document.getElementById('application-type').value;
       const course = document.getElementById('course').value;
-    
+  
       try {
         const docRef = await addDoc(collection(db, "students"), {
           email,
@@ -178,68 +135,68 @@
           course,
           timestamp: serverTimestamp()
         });
-    
+  
+        console.log("Document written with ID: ", docRef.id);
         sendEmail(email, fullname, applicationType, course);
       } catch (error) {
         console.error("Error adding document: ", error);
-        hideLoader();
-    
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'An error occurred while saving your data.'
+          text: 'An error occurred while saving your data. Please try again.'
         });
-    
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
       }
     });
-    
+  
     function sendEmail(email, fullname, applicationType, course) {
-      const typeMap = {
-        "1st Year College": "1stYear",
-        "2nd Year College": "2ndYear",
-        "3rd Year College": "3rdYear",
-        "4th Year College": "4thYear"
-      };
-      const typeSlug = typeMap[applicationType]?.replace(/\s+/g, '') || "index";
-      const courseSlug = course?.replace(/\s+/g, '').toUpperCase();
-      const fileName = `${typeSlug}${courseSlug}`;
-      const enlistmentLink = `https://hmij.github.io/pre-registration/${fileName}.html`;
-    
-      emailjs.send('service_2d8d62w', 'template_spqo6mt', {
-        email: email,
-        fullname: fullname,
-        enlistment_link: enlistmentLink
-      }, 'flGymv8nclc83OgNm')
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Registration Successful!',
-          html: 'A confirmation email has been sent.<br>Please proceed to Pre-Enlistment.',
-          confirmButtonText: 'Okay'
-        }).then(() => {
-          hideLoader();
-          form.reset();
-          location.reload();
-        });
-      })
-      .catch((error) => {
-        console.error("EmailJS Error:", error);
-        hideLoader();
-        Swal.fire({
-          icon: 'warning',
-          title: 'Registration Saved',
-          text: 'But the confirmation email failed to send.'
-        });
-        form.reset();
-      })
-      .finally(() => {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit';
-      });
-    }
-    </script>    
+  const typeMap = {
+    "1st Year College": "1stYear",
+    "2nd Year College": "2ndYear",
+    "3rd Year College": "3rdYear",
+    "4th Year College": "4thYear"
+  };
+  const typeSlug = typeMap[applicationType]?.replace(/\s+/g, '') || "index";
+  const courseSlug = course?.replace(/\s+/g, '').toUpperCase();
+  const fileName = `${typeSlug}${courseSlug}`;
+  
+  // Append email as URL parameter
+  const enlistmentLink = `https://hmij.github.io/pre-registration/${fileName}.html?email=${encodeURIComponent(email)}`;
+
+  emailjs.send('service_2d8d62w', 'template_spqo6mt', {
+    email: email,
+    fullname: fullname,
+    enlistment_link: enlistmentLink
+  }, 'flGymv8nclc83OgNm')
+  .then(() => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Registration Successful!',
+      html: 'A confirmation email has been sent.<br>Please proceed to Pre-Enlistment.',
+      confirmButtonText: 'Okay'
+    }).then(() => {
+      hideLoader();
+      form.reset();
+      location.reload();
+    });
+  })
+  .catch((error) => {
+    console.error("EmailJS Error:", error);
+    hideLoader();
+    Swal.fire({
+      icon: 'warning',
+      title: 'Registration Saved',
+      text: 'But the confirmation email failed to send.'
+    });
+    form.reset();
+  })
+  .finally(() => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+  });
+}
+  </script>
 </body>
 </html>

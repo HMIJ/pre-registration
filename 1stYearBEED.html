@@ -12,15 +12,6 @@
         <!-- Header Image -->
         <img src="img/Add a heading.png" alt="Course Dashboard Header" class="header-image">
 
-        <!-- Filter Dropdown -->
-        <div class="filter">
-            <select id="courseFilter" onchange="filterCourses()">
-                <option value="all">All Courses</option>
-                <option value="beed">BEED Course</option>
-                <option value="criminology">Criminology Course</option>
-            </select>
-        </div>
-
         <!-- Table -->
         <table id="courseTable">
             <thead>
@@ -104,28 +95,6 @@
             <p>Assignments and coursework must be submitted by the due dates listed in the course outline. Late submissions will incur a penalty of 10% per day, up to a maximum of 5 days.</p>
             <p>All submissions must be uploaded to the course portal in PDF format unless otherwise stated.</p>
         </div>
-
-        <!-- Button -->
-        <a href="#" class="button">View All Courses</a>
     </div>
-
-
-
-    <script>
-        function filterCourses() {
-            const filter = document.getElementById("courseFilter").value;
-            const rows = document.querySelectorAll("#courseTable tbody tr");
-
-            rows.forEach(row => {
-                if (filter === "all") {
-                    row.style.display = "";
-                } else if (row.classList.contains(filter)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-    </script>
 </body>
 </html>

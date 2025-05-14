@@ -12,15 +12,6 @@
         <!-- Header Image -->
         <img src="img/Add a heading.png" alt="Course Dashboard Header" class="header-image">
 
-        <!-- Filter Dropdown -->
-        <div class="filter">
-            <select id="courseFilter" onchange="filterCourses()">
-                <option value="all">All Courses</option>
-                <option value="beed">BEED Course</option>
-                <option value="criminology">Criminology Course</option>
-            </select>
-        </div>
-
         <!-- Table -->
         <table id="courseTable">
             <thead>
@@ -83,11 +74,19 @@
             </tbody>
         </table>
 
-        <!-- Payment Information Section -->
         <div class="payment-section">
             <h3>Payment Information</h3>
-            <p>All course fees are due by the end of the first week of the semester. Please ensure your payment is completed to avoid delays in course registration.</p>
-            <p>For any issues regarding payment, contact the administration office or visit our payment portal.</p>
+            <form id="acknowledgement-form">
+                <label>
+                    <input type="checkbox" name="ack1" required>
+                    Once you have submitted your Subjects Pre-Enlistment, the School Administrator will review your submission and send you a printable receipt along with the Registrar's copy via email.
+                </label><br><br>
+                
+                <label>
+                    <input type="checkbox" name="ack2" required>
+                    Only after the Registrar has verified your Pre-Enlistment details will you be eligible to proceed with the payment of your subjects. Please wait for this confirmation before making any transactions.
+                </label><br><br>
+            </form>
         </div>
 
         <!-- Submission Guidelines Section -->
@@ -96,26 +95,6 @@
             <p>Assignments and coursework must be submitted by the due dates listed in the course outline. Late submissions will incur a penalty of 10% per day, up to a maximum of 5 days.</p>
             <p>All submissions must be uploaded to the course portal in PDF format unless otherwise stated.</p>
         </div>
-
-        <!-- Button -->
-        <a href="#" class="button">View All Courses</a>
     </div>
-
-    <script>
-        function filterCourses() {
-            const filter = document.getElementById("courseFilter").value;
-            const rows = document.querySelectorAll("#courseTable tbody tr");
-
-            rows.forEach(row => {
-                if (filter === "all") {
-                    row.style.display = "";
-                } else if (row.classList.contains(filter)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-    </script>
 </body>
 </html>
