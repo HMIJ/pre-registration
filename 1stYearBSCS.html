@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Image -->
+        <img src="img/Add a heading.png" alt="Course Dashboard Header" class="header-image">
+
+        <!-- Filter Dropdown -->
+        <div class="filter">
+            <select id="courseFilter" onchange="filterCourses()">
+                <option value="all">All Courses</option>
+                <option value="beed">BEED Course</option>
+                <option value="criminology">Criminology Course</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Course Code</th>
+                    <th>Course Description</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="beed">
+                    <td><input type="checkbox"></td>
+                    <td>CS101</td>
+                    <td>Introduction to Computer Science</td>
+                    <td>3</td>
+                </tr>
+                <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>CS102</td>
+                    <td>Data Structures and Algorithms</td>
+                    <td>4</td>
+                </tr>
+                <tr class="beed">
+                    <td><input type="checkbox"></td>
+                    <td>CS103</td>
+                    <td>Web Development</td>
+                    <td>3</td>
+                </tr>
+                <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>CS104</td>
+                    <td>Database Systems</td>
+                    <td>3</td>
+                </tr>
+                <tr class="beed">
+                    <td><input type="checkbox"></td>
+                    <td>CS105</td>
+                    <td>Software Engineering</td>
+                    <td>4</td>
+                </tr>
+                <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>CS106</td>
+                    <td>Computer Networks</td>
+                    <td>3</td>
+                </tr>
+                <tr class="beed">
+                    <td><input type="checkbox"></td>
+                    <td>CS107</td>
+                    <td>Operating Systems</td>
+                    <td>3</td>
+                </tr>
+                <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>CS108</td>
+                    <td>Mobile Application Development</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="payment-section">
+            <h3>Payment Information</h3>
+            <form id="acknowledgement-form">
+                <label>
+                    <input type="checkbox" name="ack1" required>
+                    Once you have submitted your Subjects Pre-Enlistment, the School Administrator will review your submission and send you a printable receipt along with the Registrar's copy via email.
+                </label><br><br>
+                
+                <label>
+                    <input type="checkbox" name="ack2" required>
+                    Only after the Registrar has verified your Pre-Enlistment details will you be eligible to proceed with the payment of your subjects. Please wait for this confirmation before making any transactions.
+                </label><br><br>
+            </form>
+        </div>
+
+        <!-- Submission Guidelines Section -->
+        <div class="note-section">
+            <h3>Submission Guidelines</h3>
+            <p>Assignments and coursework must be submitted by the due dates listed in the course outline. Late submissions will incur a penalty of 10% per day, up to a maximum of 5 days.</p>
+            <p>All submissions must be uploaded to the course portal in PDF format unless otherwise stated.</p>
+        </div>
+
+        <!-- Button -->
+        <a href="#" class="button">View All Courses</a>
+    </div>
+
+
+
+    <script>
+        function filterCourses() {
+            const filter = document.getElementById("courseFilter").value;
+            const rows = document.querySelectorAll("#courseTable tbody tr");
+
+            rows.forEach(row => {
+                if (filter === "all") {
+                    row.style.display = "";
+                } else if (row.classList.contains(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
