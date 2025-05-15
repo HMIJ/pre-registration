@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel - Enable 2nd Semester</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f0f4f3;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #eee;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, #2e7d32, #1b5e20);
+      color: white;
+      padding: 2em 1em;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+
+    .sidebar h2 {
+      color: #fff176;
+      margin-bottom: 2em;
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      margin: 1.2em 0;
+    }
+
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      padding: 0.6em 1em;
+      border-radius: 10px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .sidebar ul li a i {
+      font-size: 1.4em;
+      margin-right: 0.8em;
+      transition: transform 0.3s;
+    }
+
+    .sidebar ul li a:hover i {
+      transform: scale(1.2);
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background-color: #66bb6a;
+      padding: 1.2em 2em;
+      color: white;
+      font-size: 1.8em;
+      font-weight: 600;
+      border-bottom: 6px solid #fff176;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header .controls {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+    }
+
+    .hamburger, .dark-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .hamburger:hover, .dark-toggle:hover {
+      transform: scale(1.1);
+    }
+
+   .content {
+    margin-top: 1in;
+    margin-left: 1in;
+  display: flex;
+  flex-direction: column; /* stack years vertically */
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.card {
+  position: relative; /* remove absolute */
+  width: 300px;
+  height: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  flex-shrink: 0;    /* prevent cards from shrinking */
+}
+
+.cards-container {
+  display: flex;
+  gap: 2rem;
+  /* remove absolute positioning from cards */
+  position: relative; 
+  top: 0;
+  left: 0;
+}
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 70px;
+      height: 38px;
+      margin-bottom: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 38px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 30px;
+      width: 30px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #43a047;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(32px);
+    }
+
+    #status {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-top: 0.5em;
+    }
+
+    #connectionStatus {
+      margin-top: 0.5em;
+      font-style: italic;
+      color: gray;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        height: 100vh;
+        z-index: 999;
+        left: 0;
+        top: 0;
+      }
+
+      .header {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+      <li><a href="#" class="active"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+      <li><a href="#"><i class='bx bx-user'></i>Manage Users</a></li>
+      <li><a href="#"><i class='bx bx-bar-chart-alt'></i>Reports</a></li>
+      <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+      <li><a href="#"><i class='bx bx-log-out'></i>Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <span>Toggle 2nd Semester</span>
+      <div class="controls">
+        <button class="hamburger" onclick="toggleSidebar()"><i class='bx bx-menu'></i></button>
+        <button class="dark-toggle" onclick="toggleDarkMode()"><i class='bx bx-moon'></i></button>
+      </div>
+    </div>
+    <div class="content">
+
+  <h2 style="margin-bottom: 1rem; color: #333;">1st Year</h2>
+  <div class="cards-container">
+    <div class="card">
+      <h3>Bachelor of Elementary Education</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch1_1">
+        <span class="slider"></span>
+      </label>
+      <div id="status1_1">Loading status...</div>
+    </div>
+
+    <div class="card">
+      <h3>Bachelor of Science in Criminology</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch1_2">
+        <span class="slider"></span>
+      </label>
+      <div id="status1_2">Loading status...</div>
+    </div>
+
+    <div class="card">
+      <h3>Bachelor of Science in Computer Science</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch1_3">
+        <span class="slider"></span>
+      </label>
+      <div id="status1_3">Loading status...</div>
+    </div>
+  </div>
+
+  <h2 style="margin: 2rem 0 1rem; color: #333;">2nd Year</h2>
+  <div class="cards-container">
+    <div class="card">
+      <h3>Bachelor of Elementary Education</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch2_1">
+        <span class="slider"></span>
+      </label>
+      <div id="status2_1">Loading status...</div>
+    </div>
+
+    <div class="card">
+      <h3>Bachelor of Science in Criminology</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch2_2">
+        <span class="slider"></span>
+      </label>
+      <div id="status2_2">Loading status...</div>
+    </div>
+
+    <div class="card">
+      <h3>Bachelor of Science in Computer Science</h3>
+      <label class="switch">
+        <input type="checkbox" id="semesterSwitch2_3">
+        <span class="slider"></span>
+      </label>
+      <div id="status2_3">Loading status...</div>
+    </div>
+  </div>
+
+
+<!-- 3rd Year -->
+<h2 style="margin: 2rem 0 1rem; color: #333;">3rd Year</h2>
+<div class="cards-container">
+  <div class="card">
+    <h3>Bachelor of Elementary Education</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch3_1">
+      <span class="slider"></span>
+    </label>
+    <div id="status3_1">Loading status...</div>
+  </div>
+
+  <div class="card">
+    <h3>Bachelor of Science in Criminology</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch3_2">
+      <span class="slider"></span>
+    </label>
+    <div id="status3_2">Loading status...</div>
+  </div>
+
+  <div class="card">
+    <h3>Bachelor of Science in Computer Science</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch3_3">
+      <span class="slider"></span>
+    </label>
+    <div id="status3_3">Loading status...</div>
+  </div>
+</div>
+
+<!-- 4th Year -->
+<h2 style="margin: 2rem 0 1rem; color: #333;">4th Year</h2>
+<div class="cards-container">
+  <div class="card">
+    <h3>Bachelor of Elementary Education</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch4_1">
+      <span class="slider"></span>
+    </label>
+    <div id="status4_1">Loading status...</div>
+  </div>
+
+  <div class="card">
+    <h3>Bachelor of Science in Criminology</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch4_2">
+      <span class="slider"></span>
+    </label>
+    <div id="status4_2">Loading status...</div>
+  </div>
+
+  <div class="card">
+    <h3>Bachelor of Science in Computer Science</h3>
+    <label class="switch">
+      <input type="checkbox" id="semesterSwitch4_3">
+      <span class="slider"></span>
+    </label>
+    <div id="status4_3">Loading status...</div>
+  </div>
+</div>
+
+  <!-- Firebase & JavaScript -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-database-compat.js"></script>
+ <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyC0eUmZ4NSrWdQ-VuBlAXWFQL3ekF6X2Hk",
+    authDomain: "hmij-eb237.firebaseapp.com",
+    projectId: "hmij-eb237",
+    storageBucket: "hmij-eb237.appspot.com",
+    messagingSenderId: "779238161828",
+    appId: "1:779238161828:web:5c3b154a317e15ff0f5531"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  const years = [1, 2, 3, 4];
+  const courses = [
+    { name: "Bachelor of Elementary Education", key: "beed" },
+    { name: "Bachelor of Science in Criminology", key: "bscrim" },
+    { name: "Bachelor of Science in Computer Science", key: "bscs" }
+  ];
+
+  years.forEach(year => {
+    courses.forEach((course, index) => {
+      const inputId = `semesterSwitch${year}_${index + 1}`;
+      const statusId = `status${year}_${index + 1}`;
+      const dbPath = `2ndSemesterEnabled_${year}_${course.key}`;
+
+      const input = document.getElementById(inputId);
+      const status = document.getElementById(statusId);
+      const ref = firebase.database().ref(dbPath);
+
+      ref.on('value', snapshot => {
+        const enabled = snapshot.val();
+        if (input && status) {
+          input.checked = !!enabled;
+          status.textContent = enabled ? "2nd Semester is ENABLED" : "2nd Semester is DISABLED";
+          status.style.color = enabled ? "green" : "red";
+        }
+      });
+
+      if (input) {
+        input.addEventListener('change', () => {
+          ref.set(input.checked).catch(error => alert("Failed to update: " + error.message));
+        });
+      }
+    });
+  });
+
+  // Dark Mode Toggle
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+
+  // Active Tab Highlight
+  document.querySelectorAll('.sidebar ul li a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar ul li a').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

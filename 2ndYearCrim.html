@@ -6,73 +6,119 @@
     <title>Course Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-database-compat.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Header Image -->
         <img src="img/Add a heading.png" alt="Course Dashboard Header" class="header-image">
 
-        <!-- Table -->
-        <table id="courseTable">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Course Code</th>
-                    <th>Course Description</th>
-                    <th>Unit</th>
-                </tr>
-            </thead>
-            <tbody>
+        <table id="courseTable1">
+    <caption style="caption-side: top; font-weight: bold; font-size: 1.2em; padding: 10px;">1st Semester</caption>
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>Course Code</th>
+            <th>Course Description</th>
+            <th>Unit</th>
+        </tr>
+    </thead>
+    <tbody>
                 <tr class="beed">
                     <td><input type="checkbox"></td>
-                    <td>CS101</td>
-                    <td>Introduction to Computer Science</td>
+                    <td>GE 1 - UNSELF</td>
+                    <td>Understanding the Self</td>
                     <td>3</td>
                 </tr>
                 <tr class="criminology">
                     <td><input type="checkbox"></td>
-                    <td>CS102</td>
-                    <td>Data Structures and Algorithms</td>
-                    <td>4</td>
-                </tr>
-                <tr class="beed">
-                    <td><input type="checkbox"></td>
-                    <td>CS103</td>
-                    <td>Web Development</td>
-                    <td>3</td>
-                </tr>
-                <tr class="criminology">
-                    <td><input type="checkbox"></td>
-                    <td>CS104</td>
-                    <td>Database Systems</td>
+                    <td>GE 2 - ARAP</td>
+                    <td>Art Appreciation</td>
                     <td>3</td>
                 </tr>
                 <tr class="beed">
                     <td><input type="checkbox"></td>
-                    <td>CS105</td>
-                    <td>Software Engineering</td>
-                    <td>4</td>
+                    <td>GE 3 - CW</td>
+                    <td>The Contemporary World</td>
+                    <td>3</td>
                 </tr>
                 <tr class="criminology">
                     <td><input type="checkbox"></td>
-                    <td>CS106</td>
-                    <td>Computer Networks</td>
+                    <td>GE-Elect-RVA</td>
+                    <td>Reading Visual Arts</td>
                     <td>3</td>
                 </tr>
                 <tr class="beed">
                     <td><input type="checkbox"></td>
-                    <td>CS107</td>
-                    <td>Operating Systems</td>
+                    <td>GE-Elect-LITE</td>
+                    <td>Living in the IT Era</td>
                     <td>3</td>
                 </tr>
                 <tr class="criminology">
                     <td><input type="checkbox"></td>
-                    <td>CS108</td>
-                    <td>Mobile Application Development</td>
+                    <td>Crim 1</td>
+                    <td>Introduction to Criminology</td>
                     <td>3</td>
+                </tr>
+                <tr class="beed">
+                    <td><input type="checkbox"></td>
+                    <td>PATHFIT 1</td>
+                    <td>Movement Competency Training</td>
+                    <td>2</td>
+                </tr>
+                <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>NSTP 1</td>
+                    <td>ROTC 1/CWTS 1/LTS 1</td>
+                    <td>3</td>
+                </tr>
+                 <tr class="criminology">
+                    <td><input type="checkbox"></td>
+                    <td>FL1</td>
+                    <td>Basic Arabic</td>
+                    <td>2</td>
                 </tr>
             </tbody>
+            </tbody>
+    <tfoot style="font-weight: bold;">
+        <tr>
+            <td colspan="3" style="text-align: right;">Total Units:</td>
+            <td id="unitCount1">0</td>
+        </tr>
+    </tfoot>
+</table>
         </table>
+
+        <table id="courseTable2">
+    <caption style="caption-side: top; font-weight: bold; font-size: 1.2em; padding: 10px;">2nd Semester</caption>
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>Course Code</th>
+            <th>Course Description</th>
+            <th>Unit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Copy of the same rows from 1st semester -->
+        <tr><td><input type="checkbox"></td><td>GE 4 - MMW</td><td>Mathematics in the Modern World</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>GE 5 - PCOM</td><td>Purposive Communication</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>GE 6 - ETHICS</td><td>Ethics</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>GE-Elect-GSD</td><td>Gender, Society and Development</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>GE-IC-PSPC</td><td>Political Science with Philippine Constitution</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>CLJ 1</td><td>Introduction to Philippine Criminal Justice System</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>PATHFIT 2</td><td>Exercised-Based Fitness Activities</td><td>2</td></tr>
+        <tr><td><input type="checkbox"></td><td>NSTP 2</td><td>ROTC 2/CWTS 2/LTS 2</td><td>3</td></tr>
+        <tr><td><input type="checkbox"></td><td>FL2</td><td>Intermediate Arabic</td><td>2</td></tr>
+    </tbody>
+    <tfoot style="font-weight: bold;">
+        <tr>
+            <td colspan="3" style="text-align: right;">Total Units:</td>
+            <td id="unitCount2">0</td>
+        </tr>
+    </tfoot>
+</table>
 
         <div class="payment-section">
             <h3>Payment Information</h3>
@@ -96,5 +142,70 @@
             <p>All submissions must be uploaded to the course portal in PDF format unless otherwise stated.</p>
         </div>
     </div>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyC0eUmZ4NSrWdQ-VuBlAXWFQL3ekF6X2Hk",
+  authDomain: "hmij-eb237.firebaseapp.com",
+  databaseURL: "https://hmij-eb237-default-rtdb.firebaseio.com/", // Add your realtime db URL
+  projectId: "hmij-eb237",
+  storageBucket: "hmij-eb237.appspot.com",
+  messagingSenderId: "779238161828",
+  appId: "1:779238161828:web:5c3b154a317e15ff0f5531"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Function to enable or disable 2nd semester checkboxes and adjust opacity
+function setSecondSemesterEnabled(enabled) {
+  const checkboxes = document.querySelectorAll('#courseTable2 input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    cb.disabled = !enabled;
+  });
+  document.getElementById('courseTable2').style.opacity = enabled ? 1 : 0.5;
+}
+
+// Listen for changes to '2ndSemesterEnabled' key in realtime database
+db.ref('2ndSemesterEnabled').on('value', snapshot => {
+  const enabled = snapshot.val();
+  if (enabled === true) {
+    setSecondSemesterEnabled(true);
+  } else {
+    setSecondSemesterEnabled(false);
+  }
+});
+
+// Your existing total units calculation functions here
+function calculateTotalUnits(tableId, countId) {
+    const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+    let totalUnits = 0;
+
+    rows.forEach(row => {
+        const checkbox = row.querySelector('input[type="checkbox"]');
+        const unit = parseInt(row.cells[3].textContent);
+
+        if (checkbox.checked) {
+            totalUnits += unit;
+        }
+    });
+
+    document.getElementById(countId).textContent = totalUnits;
+}
+
+// Attach event listeners to both tables
+['courseTable1', 'courseTable2'].forEach((tableId, index) => {
+    const checkboxes = document.querySelectorAll(`#${tableId} input[type="checkbox"]`);
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            calculateTotalUnits(tableId, `unitCount${index + 1}`);
+        });
+    });
+});
+
+// Initial state: disable 2nd semester
+setSecondSemesterEnabled(false);
+
+</script>
+
 </body>
 </html>
